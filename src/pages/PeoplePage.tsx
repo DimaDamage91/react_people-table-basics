@@ -40,8 +40,8 @@ export const PeoplePage = () => {
                       <p>{person.sex}</p>
                       <p>{person.born}</p>
                       <p>{person.died}</p>
-                      <p>{person.mother && person.mother.name ? person.mother.name : "-"}</p>
-                      <p>{person.father && person.father.name ? person.father.name : "-"}</p>
+                      <p>{person.motherName || "-"}</p>
+                      <p>{person.fatherName || "-"}</p>
                     </div>
                 ) : people.length === 0 ? (
                       <p data-cy="noPeopleMessage">There are no people on the server</p>
@@ -69,15 +69,15 @@ export const PeoplePage = () => {
                           <td>{person.born}</td>
                           <td>{person.died}</td>
                           <td>
-                            {person.mother && person.mother.name ? (
-                              <PersonLink person={person.mother} />
+                            {person.motherName ? (
+                              <PersonLink person={{ name: person.motherName }} />
                             ) : (
                               '-'
                             )}
                             </td>
                             <td>
-                              {person.father && person.father.name ? (
-                               <PersonLink person={person.father}/>
+                              {person.fatherName ? (
+                               <PersonLink person={{ name: person.fatherName }} />
                             ) : (
                               '-'
                             )}
