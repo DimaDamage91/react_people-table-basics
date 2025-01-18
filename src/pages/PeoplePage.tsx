@@ -22,6 +22,12 @@ export const PeoplePage = () => {
 
   const person = slug ? people.find(p => p.slug === slug) : null;
 
+
+  const isExist = (name: string) => {
+    const person = people.find(p => p.name === name);
+    return person ? <PersonLink person={person} /> : name;
+  };
+
   return (
     <>
       <h1 className="title">People Page</h1>
@@ -63,25 +69,13 @@ export const PeoplePage = () => {
 
                     <tbody>
                       {people.map((person) => (
-                        <tr data-cy="person" key={person.slug}>
+                        <tr data-cy="person" key={person.slug} className={slug === person.slug ? 'has-background-warning' : ''}>
                           <td><PersonLink person={person} /></td>
                           <td>{person.sex}</td>
                           <td>{person.born}</td>
                           <td>{person.died}</td>
-                          <td>
-                            {person.motherName ? (
-                              <PersonLink person={{ name: person.motherName }} />
-                            ) : (
-                              '-'
-                            )}
-                            </td>
-                            <td>
-                              {person.fatherName ? (
-                               <PersonLink person={{ name: person.fatherName }} />
-                            ) : (
-                              '-'
-                            )}
-                            </td>
+                          <td>{person.motherName ? isExist(person.motherName) : '-'}</td>
+                          <td>{person.fatherName ? isExist(person.fatherName) : '-'}</td>
                           </tr>
                         ))}
                       </tbody>
